@@ -70,7 +70,8 @@ async def download(url, parts, size):
         headers = {
             "Range": "bytes={}-{}".format(start, end - 1 if end else "")
         }
-        print(i, format(start, ',d'), format(end, ',d'))
+        # print(i, format(start, ',d'), format(end, ',d'))
+        print(i, start, end)
         with aiohttp.ClientSession(connector=conn) as session:
             async with session.get(u, headers=headers, auth=my_auth) as _resp:
                 return i, await _resp.read()
@@ -83,7 +84,9 @@ async def download(url, parts, size):
     )
 
     sorted_result = sorted(task.result() for task in res)
-    return b"".join(data for _, data in sorted_result)
+    # return b"".join(data for _, data in sorted_result)
+    print("All the parts are downloaded")
+    return sorted_result
 
 
 if __name__ == '__main__':
@@ -99,6 +102,7 @@ if __name__ == '__main__':
         bs = loop.run_until_complete(download(last_build[1], 5, image_size))
 
         with open(last_build[2], "wb") as fi:
-            fi.write(bs)
+            for _, data in bs:
+                fi.write(data)
     else:
         print("Ne kachaem")
