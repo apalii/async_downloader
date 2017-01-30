@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 requests.packages.urllib3.disable_warnings()
 
 # https://docs.python.org/3/library/argparse.html#the-add-argument-method
-parser = argparse.ArgumentParser(description='jenking image downloader beta')
+parser = argparse.ArgumentParser(description='jenkins image downloader beta')
 parser.add_argument("-l", "--login", required=True, type=str, help="Login")
 parser.add_argument("-p", "--password", required=True, type=str, help="Password")
 parser.add_argument("-u", "--url", required=True, type=str, help="url")
